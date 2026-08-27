@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build_and_check:
+    name: Build & Verify
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify Python Syntax
+        run: |
+          python3 -m py_compile plugin/extractor.py
+
+      - name: Fetch Upstream yt-dlp
+        run: |
+          chmod +x build/fetch-ytdlp.sh
+          ./build/fetch-ytdlp.sh
+
+      - name: Validate Plugin Build
+        run: |
+          chmod +x build/build.sh
+          ./build/build.sh
+
+      - name: Verify Build Artifact Exists
+        run: |
+          if [ ! -f "build/talons.gda" ]; then
+            echo "❌ Error: build/talons.gda not found"
+            exit 1
+          fi
+          echo "✅ Build verified successfully!"

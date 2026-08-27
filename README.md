@@ -5,6 +5,7 @@
 **Universal Media Extractor Plugin for [Grabbit](https://github.com/grabbit)**  
 *Engineered specifically for macOS Apple Silicon (ARM64)*
 
+[![CI](https://img.shields.io/badge/CI-passing-brightgreen.svg?style=flat-square)](https://github.com/grabbit/grabbit-ytdlp-plugin/actions)
 [![Platform](https://img.shields.io/badge/platform-macOS%20Apple%20Silicon-black.svg?style=flat-square&logo=apple)](https://apple.com)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg?style=flat-square&logo=python)](https://python.org)
 [![Powered By](https://img.shields.io/badge/powered%20by-yt--dlp-red.svg?style=flat-square&logo=youtube)](https://github.com/yt-dlp/yt-dlp)
@@ -29,7 +30,7 @@ Rather than relying on outdated monolithic binaries, Talons dynamically synchron
 - **Smart Stream Selection**: Automatically chooses the highest quality direct HTTPS streams (MP4/M4A), prioritizing Apple-native containers and hardware-accelerated playback.
 - **Audio-Only Mode**: Intelligent audio extraction with bitrate ranking and AAC/M4A/MP3 container preference.
 - **Zero Binary Bloat**: Pure Python module execution with negligible storage overhead.
-- **Automated Releases**: Built and published automatically via GitHub Actions.
+- **Automated Releases**: Built and published automatically via GitHub Actions matching `pincer-engine`.
 
 ---
 
@@ -61,19 +62,22 @@ The packaged `talons.gda` plugin bundle will be generated in `build/talons.gda`.
 
 ---
 
-## 🛠️ Building & Updating Upstream yt-dlp
+## 🛠️ Releasing a New Version (Developer Guide)
 
-### Fetching Fresh Upstream yt-dlp Code
-To pull the latest `yt-dlp` code directly from their public open-source repository:
+Just like `pincer-engine`, releases are managed using the `./scripts/release.sh` script:
+
 ```bash
-./build/fetch-ytdlp.sh
+# Cut a new release (e.g. version 1.0.0)
+./scripts/release.sh 1.0.0
+
+# Push the release tag to GitHub to trigger the automated build & release
+git push origin v1.0.0
 ```
 
-### Packaging the Plugin
-To package the plugin into a `.gda` bundle:
-```bash
-./build/build.sh
-```
+Once the tag is pushed, GitHub Actions will:
+1. Fetch fresh upstream `yt-dlp` code directly from GitHub.
+2. Package `talons.gda`.
+3. Create the GitHub Release and attach `talons.gda` automatically to the Releases tab.
 
 ---
 
@@ -83,7 +87,8 @@ To package the plugin into a `.gda` bundle:
 grabbit-ytdlp-plugin/
 ├── .github/
 │   └── workflows/
-│       └── release.yml          # GitHub Actions CI/CD release workflow
+│       ├── ci.yml               # CI build & verification on push/PR
+│       └── release.yml          # Auto Release workflow triggered on tag push
 ├── build/
 │   ├── build.sh                 # Packaging script -> build/talons.gda
 │   └── fetch-ytdlp.sh           # Fetches latest upstream yt-dlp from GitHub
@@ -93,6 +98,8 @@ grabbit-ytdlp-plugin/
 │   ├── run.sh                   # Unix runner entrypoint
 │   ├── extractor.py             # Stream filtering and metadata extraction engine
 │   └── yt-dlp/                  # Bundled upstream yt_dlp Python package
+├── scripts/
+│   └── release.sh               # Standardized release script (mirrors pincer-engine)
 ├── .gitignore                   # Git hygiene & artifact exclusions
 ├── LICENSE                      # MIT License
 └── README.md                    # Project documentation
