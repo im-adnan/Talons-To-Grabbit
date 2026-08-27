@@ -42,14 +42,29 @@ Rather than relying on outdated monolithic binaries, Talons dynamically synchron
 
 ---
 
-## 🚀 Installation
+## 🔌 Installing into Grabbit App
 
-### Option 1: Download Prebuilt Release (Recommended)
-1. Go to the [Releases](https://github.com/grabbit/grabbit-ytdlp-plugin/releases) section.
-2. Download the latest `talons.gda` bundle.
-3. Open Grabbit, navigate to **Settings / Plugins**, and select **Install Plugin** -> choose `talons.gda`.
+You can install `talons.gda` into Grabbit using any of the following methods:
 
-### Option 2: Build from Source
+### Method 1: Via Grabbit Settings UI (Recommended)
+1. Launch **Grabbit**.
+2. Open **Settings** (`Cmd + ,` or click the gear icon in the toolbar).
+3. Select the **Extensions** tab from the sidebar.
+4. Scroll to the **Installed Plugins** section.
+5. Click **"Install Plugin from File..."**.
+6. Select the `talons.gda` bundle you downloaded or built.
+7. Grabbit will automatically extract the plugin and display **Talons** with its version and description in the list.
+
+### Method 2: Via the Grabbit Menu Bar
+1. Open **Grabbit**.
+2. In the top macOS menu bar, click **File** → **Install Plugin...** (or click the Grabbit menu bar tray icon and select **Install Plugin...**).
+3. Choose `talons.gda`.
+4. A notification toast will confirm: *"Plugin installed successfully!"*.
+
+---
+
+## 📦 Building from Source
+
 ```bash
 # 1. Clone the repository
 git clone https://github.com/grabbit/grabbit-ytdlp-plugin.git
