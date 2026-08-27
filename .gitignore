@@ -5,6 +5,11 @@ dist/
 *.zip
 *.tar.gz
 
+# Upstream yt-dlp package (fetched dynamically during build)
+plugin/yt-dlp/
+plugin/yt-dlp
+
+
 # macOS system files
 .DS_Store
 .AppleDouble
