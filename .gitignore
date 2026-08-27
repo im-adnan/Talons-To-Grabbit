@@ -1,0 +1,30 @@
+# Build outputs & packages
+*.gda
+build/*.gda
+dist/
+*.zip
+*.tar.gz
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+
+# IDE and workspace
+.vscode/
+.idea/
+*.swp
+*~
+
+# Plugin signatures & temp logs
+signature.dat
+*.log
